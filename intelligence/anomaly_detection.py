@@ -5,10 +5,9 @@ from database.models import get_engine
 TABLE_NAME = "bookings"
 
 FEATURE_COLUMNS = [
-    "num_passengers", "purchase_lead", "length_of_stay", "flight_hour",
+    "num_passengers", "length_of_stay", "flight_hour",
     "wants_extra_baggage", "wants_preferred_seat", "wants_in_flight_meals",
-    "flight_duration", "is_last_minute_booking", "is_weekend_flight",
-    "total_extras_selected", "route_popularity", "is_long_haul"
+    "flight_duration", "is_weekend_flight", "total_extras_selected", "is_long_haul"
 ]
 
 CONTAMINATION = 0.02
@@ -34,6 +33,13 @@ def summarize_anomalies(df):
     print(f"Flagged anomalies: {len(anomalies)} ({len(anomalies)/len(df):.2%})")
     print(f"\nAnomaly conversion rate: {anomalies['booking_complete'].mean():.2%}")
     print(f"Normal conversion rate: {df[df['anomaly_flag'] == 1]['booking_complete'].mean():.2%}")
+
+    print("\nAnomaly rate by sales_channel:")
+    print(df.groupby("sales_channel")["anomaly_flag"].apply(lambda x: (x == -1).mean()))
+
+    print("\nAnomaly rate by trip_type:")
+    print(df.groupby("trip_type")["anomaly_flag"].apply(lambda x: (x == -1).mean()))
+
     return anomalies
 
 
@@ -50,4 +56,3 @@ if __name__ == "__main__":
     df, model = run_isolation_forest(df)
     anomalies = summarize_anomalies(df)
     show_worst_anomalies(anomalies)
-    
