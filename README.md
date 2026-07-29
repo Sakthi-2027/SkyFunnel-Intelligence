@@ -85,7 +85,12 @@ streamlit run dashboard/Home.py
 ### AI Insights
 ![AI Insights](docs/screenshots/ai_insights.jpeg)
 
+## Known Limitations
 
+- **Static dataset, not live data**: this project uses one historical snapshot, not a streaming daily feed. All "estimated lost bookings" figures describe totals across whatever period this dataset spans — they are not a daily or ongoing rate.
+- **Multiple comparisons**: 214 routes were significance-tested independently at p < 0.05. At that sample size, roughly 5% (~11 routes) would appear "significant" by pure chance even if nothing were wrong anywhere. The 65 flagged routes are well above that chance floor, suggesting real signal, but a production version of this system would apply a correction (e.g. Bonferroni) rather than treat all flagged routes as equally certain.
+- **Isolation Forest was tried and found unsuitable**: since `booking_complete` is a labeled target, unsupervised anomaly detection consistently surfaced statistically rare but business-irrelevant combinations (e.g. long-haul flight durations) rather than conversion-relevant anomalies. The supervised Random Forest model was a better fit for this specific dataset — documented here as a deliberate finding, not an oversight.
+- **No revenue/pricing data**: the original project scope included revenue and pricing monitoring; this dataset has no price or revenue columns, so those modules were scoped out rather than simulated.
 
 ## Author
 
