@@ -1,0 +1,67 @@
+======================================================================
+SKYFUNNEL INTELLIGENCE -- EXECUTIVE REPORT
+Generated: 2026-07-29 12:26
+======================================================================
+
+BOOKING HEALTH SCORE: 79.4 / 100 -- MONITOR
+  Conversion Health : 100.0 / 100
+  Anomaly Health    : 69.6 / 100 (65/214 routes flagged)
+  Impact Health     : 68.6 / 100
+  Channel Health    : 54.9 / 100
+
+----------------------------------------------------------------------
+OVERALL CONVERSION
+----------------------------------------------------------------------
+Platform-wide conversion rate: 15.00%
+
+----------------------------------------------------------------------
+CHANNEL PERFORMANCE
+----------------------------------------------------------------------
+CHANNEL GAP: Mobile converts at 11.0% vs Internet at 15.5% (a 4.5% point gap, on 5364 mobile bookings)
+  VERDICT: Statistically significant (p=0.0000) -- this is unlikely to be random variance. Worth investigating the mobile checkout flow specifically.
+
+----------------------------------------------------------------------
+TOP 5 ROUTES BY CONVERSION
+----------------------------------------------------------------------
+ route  total_bookings  conversion_rate
+ICNLGK             127         0.456693
+ICNPEN             298         0.449664
+JHBTPE             116         0.448276
+ICNKCH             106         0.443396
+PENTPE             912         0.434211
+
+----------------------------------------------------------------------
+WORST 5 ROUTES BY CONVERSION
+----------------------------------------------------------------------
+ route  total_bookings  conversion_rate
+IKAMEL              66              0.0
+ICNKBV              71              0.0
+DELSYD             206              0.0
+DELSIN              63              0.0
+AKLICN              69              0.0
+
+----------------------------------------------------------------------
+TOP 5 BUSINESS-IMPACT INCIDENTS (by estimated lost bookings)
+----------------------------------------------------------------------
+  ICNSIN (South Korea): ~49.2 lost bookings (p=0.0000)
+  ICNSYD (South Korea): ~41.1 lost bookings (p=0.0000)
+  HKTICN (South Korea): ~34.2 lost bookings (p=0.0000)
+  MELTPE (Taiwan): ~33.7 lost bookings (p=0.0000)
+  MELSGN (Australia): ~19.1 lost bookings (p=0.0004)
+
+----------------------------------------------------------------------
+ROOT CAUSE DETAIL -- TOP INCIDENT
+----------------------------------------------------------------------
+ROUTE ICNSIN: 0.4% conversion (2/502 bookings)
+  Platform-wide baseline: 15.0%
+  Dominant origin country: South Korea (typical rate: 10.2%)
+  VERDICT: Statistically significant anomaly (p=0.0000) -- ICNSIN converts meaningfully below what South Korea normally does. This points to a route-specific issue, not general South Korea customer behavior.
+
+----------------------------------------------------------------------
+RECOMMENDED ACTIONS
+----------------------------------------------------------------------
+  - Mobile conversion trails Internet by 4.5% -- review mobile checkout flow for friction points.
+  - Route ICNSIN shows the highest estimated impact (~49.2 lost bookings) -- investigate first.
+  - 37 routes show statistically significant deviation from baseline -- note that at this sample size, some are expected to be false positives; prioritize by impact size, not p-value alone.
+
+======================================================================
