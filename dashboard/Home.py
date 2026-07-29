@@ -24,23 +24,32 @@ st.caption("Flight Booking Conversion Intelligence Platform")
 
 health = calculate_health_score(engine)
 
-status_colors = {
-    "HEALTHY": "🟢",
-    "MONITOR": "🟡",
-    "WARNING": "🟠",
-    "CRITICAL": "🔴"
+status_styles = {
+    "HEALTHY": ("🟢", "#2ECC71"),
+    "MONITOR": ("🟡", "#F1C40F"),
+    "WARNING": ("🟠", "#E67E22"),
+    "CRITICAL": ("🔴", "#E74C3C")
 }
+emoji, color = status_styles.get(health["status"], ("", "#FFFFFF"))
 
-st.header(f"{status_colors.get(health['status'], '')} Booking Health Score")
+st.markdown(
+    f"""
+    <div style="padding: 20px; border-radius: 10px; background-color: {color}22;
+                border: 1px solid {color}; margin-bottom: 20px;">
+        <span style="font-size: 28px;">{emoji} {health['status']}</span>
+        <span style="font-size: 20px; float: right;">
+            Score: <b>{health['overall_score']} / 100</b>
+        </span>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-col1, col2, col3, col4, col5 = st.columns(5)
-
-col1.metric("Overall Score", f"{health['overall_score']} / 100", health["status"])
-col2.metric("Conversion Health", f"{health['conversion_score']} / 100")
-col3.metric("Anomaly Health", f"{health['anomaly_score']} / 100", health["significant_anomalies"])
-col4.metric("Impact Health", f"{health['impact_score']} / 100", f"-{health['estimated_lost_bookings']} bookings")
-col5.metric("Channel Health", f"{health['channel_score']} / 100", f"{health['channel_gap']:.1%} gap")
-
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Conversion Health", f"{health['conversion_score']} / 100")
+col2.metric("Anomaly Health", f"{health['anomaly_score']} / 100", health["significant_anomalies"])
+col3.metric("Impact Health", f"{health['impact_score']} / 100", f"-{health['estimated_lost_bookings']} bookings")
+col4.metric("Channel Health", f"{health['channel_score']} / 100", f"{health['channel_gap']:.1%} gap")
 st.divider()
 
 st.subheader("Overall Conversion")
