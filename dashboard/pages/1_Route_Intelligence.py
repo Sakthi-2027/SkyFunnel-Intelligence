@@ -8,6 +8,8 @@ from database.models import get_engine
 from monitoring.conversion_metrics import conversion_by_route
 
 st.set_page_config(page_title="Route Intelligence", page_icon="🛫", layout="wide")
+from dashboard.styles import apply_custom_style
+apply_custom_style()
 
 engine = get_engine()
 
@@ -29,14 +31,14 @@ with col1:
     st.markdown("**Top 15 Routes by Conversion**")
     top_15 = routes_df.head(15)
     fig_top = px.bar(top_15, x="route", y="conversion_rate", color="conversion_rate",
-                      color_continuous_scale="Greens")
+                     color_continuous_scale="Greens", template="plotly_dark")
     st.plotly_chart(fig_top, use_container_width=True)
 
 with col2:
     st.markdown("**Bottom 15 Routes by Conversion**")
     bottom_15 = routes_df.tail(15)
     fig_bottom = px.bar(bottom_15, x="route", y="conversion_rate", color="conversion_rate",
-                         color_continuous_scale="Reds_r")
+                        color_continuous_scale="Reds_r", template="plotly_dark")
     st.plotly_chart(fig_bottom, use_container_width=True)
 
 st.divider()

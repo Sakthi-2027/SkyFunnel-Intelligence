@@ -16,7 +16,8 @@ st.set_page_config(
     page_icon="✈️",
     layout="wide"
 )
-
+from dashboard.styles import apply_custom_style
+apply_custom_style()
 engine = get_engine()
 
 st.title("✈️ SkyFunnel Intelligence")
@@ -52,13 +53,16 @@ col3.metric("Impact Health", f"{health['impact_score']} / 100", f"-{health['esti
 col4.metric("Channel Health", f"{health['channel_score']} / 100", f"{health['channel_gap']:.1%} gap")
 st.divider()
 
-st.subheader("Overall Conversion")
-overall = overall_conversion_rate(engine)
-st.metric("Platform-wide Conversion Rate", f"{overall:.2%}")
-
-st.subheader("Conversion by Channel")
-channel_df = conversion_by_channel(engine)
-st.dataframe(channel_df, use_container_width=True)
-
 st.divider()
-st.caption("Use the sidebar to navigate to Route Intelligence, Incident History, and more.")
+
+tab1, tab2 = st.tabs(["📊 Conversion Overview", "📱 Channel Breakdown"])
+
+with tab1:
+    overall = overall_conversion_rate(engine)
+    st.metric("Platform-wide Conversion Rate", f"{overall:.2%}")
+
+with tab2:
+    channel_df = conversion_by_channel(engine)
+    st.dataframe(channel_df, use_container_width=True)
+
+st.caption("Use the sidebar to navigate to Route Intelligence, Incident History, and AI Insights.")

@@ -8,7 +8,8 @@ import plotly.express as px
 from database.models import get_engine
 
 st.set_page_config(page_title="Incident History", page_icon="📅", layout="wide")
-
+from dashboard.styles import apply_custom_style
+apply_custom_style()
 engine = get_engine()
 
 st.title("📅 Incident History")
@@ -36,9 +37,10 @@ filtered_df = df[df["severity"].isin(severity_filter) & df["status"].isin(status
 st.subheader(f"Showing {len(filtered_df)} of {len(df)} incidents")
 
 fig = px.bar(
-    filtered_df.head(20), x="route", y="estimated_lost_bookings",
-    color="severity", color_discrete_map={"HIGH": "#E74C3C", "MEDIUM": "#F1C40F", "LOW": "#2ECC71"}
-)
+       filtered_df.head(20), x="route", y="estimated_lost_bookings",
+       color="severity", color_discrete_map={"HIGH": "#E74C3C", "MEDIUM": "#F1C40F", "LOW": "#2ECC71"},
+       template="plotly_dark"
+   )
 st.plotly_chart(fig, use_container_width=True)
 
 st.dataframe(
