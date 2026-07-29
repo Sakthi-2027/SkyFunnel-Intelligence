@@ -33,6 +33,22 @@ class Booking(Base):
     route_popularity = Column(Integer)
     is_long_haul = Column(Integer)
 
+class Incident(Base):
+    __tablename__ = "incidents"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    detected_at = Column(String)
+    route = Column(String)
+    origin = Column(String)
+    issue_type = Column(String)
+    observed_rate = Column(Float)
+    baseline_rate = Column(Float)
+    p_value = Column(Float)
+    estimated_lost_bookings = Column(Float)
+    severity = Column(String)
+    status = Column(String)
+    notes = Column(String)
+
 def get_engine():
     engine = create_engine(DATABASE_URL, echo=False)
     return engine
